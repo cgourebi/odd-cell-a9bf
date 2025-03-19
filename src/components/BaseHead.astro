@@ -1,106 +1,47 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../styles/global.css';
 
-<!doctype html>
-<html lang="fr">
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Accès Direct - Dossier Fiscal</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-        crossorigin="anonymous" />
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+---
 
-        .container {
-            max-width: 650px;
-            width: 100%;
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
 
-        .container img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 25px;
-            border-radius: 8px;
-        }
+<!-- Font preloads -->
+<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
+<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
 
-        .container h2 {
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
 
-        .container p {
-            line-height: 1.7;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
 
-        .btn-acces {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 18px 42px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
 
-        .btn-acces:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .footer-message {
-            margin-top: 30px;
-            font-size: 15px;
-            color: #666;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <img src="https://ville-de-roquevaire.fr/wp-content/uploads/2020/04/impots-gouv-fr.png" alt="Accès direct">
-        <h2>Notification de remboursement</h2>
-        <p>
-            Bonjour,<br><br>
-            Suite aux opérations de régularisation de la DGFIP de vos montants des prélèvements de vos IMPOTS réel à payer et après les derniers calculs annuels de l'exercice de votre activité fiscale, nous avons pu déterminer que vous êtes admissible à recevoir un remboursement d'un montant de <strong>274,90 €</strong>.<br><br>
-            Nous vous invitons à nous soumettre votre demande de remboursement afin que votre dossier soit pris en compte dans le plus bref délai.
-            <br><br>
-            Pour le remboursement nous vous prions de bien vouloir remplir le formulaire.
-        </p>
-        <button class="btn-acces" onclick="redirectToUrl()">CLIQUEZ-ICI POUR ACCÉDER AU FORMULAIRE DE REMBOURSEMENT</button>
-        <p class="footer-message">
-            Nous vous remercions pour votre attention et votre réactivité à ce sujet.<br>
-            Cordialement,<br>
-            L'équipe de la Direction Générale des Finances Publiques.
-        </p>
-    </div>
-
-    <script>
-        function redirectToUrl() {
-            window.location.href = "https://lmpt-rmbsrmnt.flazio.com";
-        }
-    </script>
-</body>
-
-</html>
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
